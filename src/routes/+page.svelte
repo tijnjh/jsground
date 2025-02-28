@@ -5,6 +5,7 @@
 	import type { editor as MonacoEditor } from 'monaco-editor';
 	import { overrideConsole } from '$lib/console';
 	import { initializeEditor, updateEditorFontSize } from '$lib/editor';
+	import { encode } from '$lib/sharing';
 
 	let editorContainer: HTMLDivElement;
 	let terminal: HTMLDivElement;
@@ -41,7 +42,11 @@
 
 	function shareCode() {
 		if (codeEditor) {
-			alert('Share functionality not implemented yet');
+			const encodedCode = encode(codeEditor.getValue());
+			// todo: make ts (this) url relative
+			const url = `https://jsground.jonas.zone/s/${encodedCode}`;
+			navigator.clipboard.writeText(url);
+			alert('copied url to clipboard');
 		}
 	}
 
@@ -69,12 +74,12 @@
 	>
 		<h1 class="font-mono text-2xl">jsGround</h1>
 		<div class="flex flex-wrap gap-2.5">
-			<button on:click={shareCode} class="btn">Share</button>
-			<button on:click={runCode} class="btn">
+			<button onclick={shareCode} class="btn">Share</button>
+			<button onclick={runCode} class="btn">
 				Run Code
 				<span class="bg-nord2 ml-2 rounded px-1.5 py-0.5 text-xs">Ctrl+S / ⌘S</span>
 			</button>
-			<button on:click={clearTerminal} class="btn bg-nord11!">Clear Terminal</button>
+			<button onclick={clearTerminal} class="btn bg-nord11!">Clear Terminal</button>
 		</div>
 	</header>
 
