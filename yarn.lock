@@ -135,6 +135,11 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.25.0.tgz#c8e119a30a7c8d60b9d2e22d2073722dde3b710b"
   integrity sha512-ZENoHJBxA20C2zFzh6AI4fT6RraMzjYw4xKWemRTRmRVtN9c5DcH9r/f2ihEkMjOW5eGgrwCslG/+Y/3bL+DHQ==
 
+"@fontsource/dm-mono@^5.1.1":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@fontsource/dm-mono/-/dm-mono-5.1.1.tgz#44510457e7cdbe6be20dbb2afbb22a5436982a57"
+  integrity sha512-blj8dgPQ63UqOdt0beSL1oV5r0/AASsQTGBOI5lTryb6XBzWUsOiIZCfHENtbCuGXjCblxVc+1/zkb13lwYF+g==
+
 "@jridgewell/gen-mapping@^0.3.5":
   version "0.3.8"
   resolved "https://registry.yarnpkg.com/@jridgewell/gen-mapping/-/gen-mapping-0.3.8.tgz#4f0e06362e01362f823d348f1872b08f666d8142"

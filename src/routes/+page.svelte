@@ -6,6 +6,7 @@
 	import { overrideConsole } from '$lib/console';
 	import { initializeEditor, updateEditorFontSize } from '$lib/editor';
 	import { encode } from '$lib/sharing';
+	import '@fontsource/dm-mono';
 
 	let editorContainer: HTMLDivElement;
 	let terminal: HTMLDivElement;
