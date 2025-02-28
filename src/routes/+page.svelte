@@ -56,6 +56,10 @@
 		codeEditor = editor;
 
 		codeEditor.addCommand(monacoEditor.KeyMod.CtrlCmd | monacoEditor.KeyCode.KeyS, runCode);
+
+		if (localStorage.code) {
+			codeEditor.setValue(localStorage.code);
+		}
 	});
 </script>
 
