@@ -14,11 +14,37 @@
 	let monacoEditor: Monaco;
 	let codeEditor: MonacoEditor.IStandaloneCodeEditor;
 
+	function checkForImports() {
+		const code = codeEditor.getValue();
+		const importRegex = /import\s+.+?\s+from\s+['"].+?['"];?/g;
+		const importStatements = code.match(importRegex);
+		const packages = importStatements?.map((importStatement) =>
+			importStatement!
+				.split(' ')!
+				.at(-1)!
+				.replace(/[^a-zA-Z0-9_-]/g, '')
+		);
+
+		packages?.forEach((pkg) => {
+			const elScript = document.createElement('script');
+			elScript.defer = true;
+			elScript.src = `https://unpkg.com/${pkg}`;
+
+			document.body.insertAdjacentElement('beforeend', elScript);
+		});
+	}
+
 	function runCode() {
+		checkForImports();
+
 		if (!codeEditor) return;
 
 		terminal.innerHTML = '';
-		const code = codeEditor.getValue();
+		let code = codeEditor.getValue();
+
+		// comment out import statements
+		code = code.replace(/(import\s+.+?\s+from\s+['"].+?['"];?)/g, '// $1');
+
 		const startTime = performance.now();
 
 		try {
@@ -73,32 +99,32 @@
 	onresize={() => updateEditorFontSize(codeEditor)}
 />
 
-<div class="flex h-dvh flex-col">
+<div class="flex flex-col h-dvh">
 	<header
-		class="bg-nord1 text-nord6 flex flex-wrap items-center justify-between gap-2.5 px-5 py-2.5"
+		class="flex flex-wrap gap-2.5 justify-between items-center px-5 py-2.5 bg-nord1 text-nord6"
 	>
 		<h1 class="font-mono text-2xl">jsGround</h1>
 		<div class="flex flex-wrap gap-2.5">
 			<button onclick={shareCode} class="btn">Share</button>
 			<button onclick={runCode} class="btn">
 				Run Code
-				<span class="bg-nord2 ml-2 rounded px-1.5 py-0.5 text-xs">Ctrl+S / ⌘S</span>
+				<span class="px-1.5 py-0.5 ml-2 text-xs rounded bg-nord2">Ctrl+S / ⌘S</span>
 			</button>
 			<button onclick={clearTerminal} class="btn bg-nord11!">Clear Terminal</button>
 		</div>
 	</header>
 
 	<div class="grid h-[calc(100%-4rem)] grid-cols-[1fr_400px] overflow-hidden">
-		<div bind:this={editorContainer} class="border-nord3 h-full border-r"></div>
-		<div class="bg-nord0 text-nord4 flex h-full flex-col overflow-hidden">
-			<div class="bg-nord1 text-nord4 flex justify-between px-4 py-2.5">
+		<div bind:this={editorContainer} class="h-full border-r border-nord3"></div>
+		<div class="flex overflow-hidden flex-col h-full bg-nord0 text-nord4">
+			<div class="flex justify-between px-4 py-2.5 bg-nord1 text-nord4">
 				<span>Terminal Output</span>
 			</div>
 			<div
 				bind:this={terminal}
 				class="bg-nord0 **:[.log]:text-nord4 **:[.error]:text-nord11 **:[.warn]:text-nord13 **:[.info]:text-nord8 flex-1 overflow-y-auto px-5 py-2.5 font-mono text-sm whitespace-pre-wrap"
 			></div>
-			<div class="bg-nord1 text-nord4 flex justify-between px-4 py-2.5 text-xs">
+			<div class="flex justify-between px-4 py-2.5 text-xs bg-nord1 text-nord4">
 				<span>JavaScript Console</span>
 				<span bind:this={executionTimeElement}></span>
 			</div>
