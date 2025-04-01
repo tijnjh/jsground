@@ -2,7 +2,7 @@
 
 a JavaScript playground
 
-https://jsground.jonas.zone/
+https://jsground.tijn.dev/
 
 ### features
 - import external packages 
