@@ -70,8 +70,7 @@
 	function shareCode() {
 		if (codeEditor) {
 			const encodedCode = encode(codeEditor.getValue());
-			// todo: make ts (this) url relative
-			const url = `https://jsground.jonas.zone/s/${encodedCode}`;
+			const url = `https://jsground.tijn.dev/s/${encodedCode}`;
 			navigator.clipboard.writeText(url);
 			alert('copied url to clipboard');
 		}
@@ -116,7 +115,7 @@
 
 	<div class="grid h-[calc(100%-4rem)] grid-cols-[1fr_400px] overflow-hidden">
 		<div bind:this={editorContainer} class="h-full border-r border-nord3"></div>
-		<div class="flex overflow-hidden flex-col h-full bg-nord0 text-nord4">
+		<div class="flex flex-col h-full overflow-hidden bg-nord0 text-nord4">
 			<div class="flex justify-between px-4 py-2.5 bg-nord1 text-nord4">
 				<span>Terminal Output</span>
 			</div>
